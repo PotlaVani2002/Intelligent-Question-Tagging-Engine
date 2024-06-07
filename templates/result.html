@@ -95,9 +95,8 @@
  background-size:cover; margin:1% 15%; text-align: center;">
  <div class="top">
   <marquee width="70%" direction="left" >
-      <b style="margin-top:5%;"><i>Scora Labs Pvt Ltd</i></b>
-      </marquee> 
-      <img src="./static/scora_logo.jpg" style=" margin-top:0;height:25%;width:19%;text-align: center;float: left;">
+      <b style="margin-top:5%;"><i>Assigning Question Tags </i></b>
+  </marquee>
    </div> 
  <br><br><br>
   <div id="result">
@@ -197,11 +196,6 @@
                 var selectBox = document.getElementById(selectBoxId);
                 for (var i = 0; i < storedOptions.length; i++) {
                     var option = document.createElement("option");
-                    /*if(storedOptions[i]!="hello")
-                    {
-                        option.text = storedOptions[i];
-                        selectBox.add(option); 
-                    }*/
                    if(storedOptions[i]=="hello")
                    {
                         option.text = storedOptions[i];
@@ -233,13 +227,6 @@
             var difficulty = document.getElementById("Difficulty").value;
             var category = document.getElementById("Category").value;
             var subcategory = document.getElementById("SubCategory").value;
-
-            // Display the values
-            /*var result = "<h2>" + question  +"</h2>" +"<br>" +
-                         "Taxonomy: " + taxonomy + "<br>" +
-                         "Difficulty: " + difficulty + "<br>" +
-                         "Category: " + category + "<br>" +
-                         "Subcategory: " + subcategory;*/
             
             // Construct the new content using input elements
        var result = "<h2>" + question + "</h2>" +"<br>" +
@@ -251,11 +238,6 @@
             "<input type='text' value='" + category + "' readonly>" +"<br><br>" +
                          "<b>Subcategory:</b> "+
             "<input type='text' value='" + subcategory + "' readonly>";
-
-        // Replace the current page with the new content
-        /*document.open();
-        document.write(result);
-        document.close();*/
 
            document.getElementById("result").innerHTML = result;
         }
