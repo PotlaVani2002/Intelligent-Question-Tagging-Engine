@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generated tags</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
+
+    <style> 
+  /* Add additional CSS rules as needed */
+  
+  p {
+    margin-bottom: 10px;
+  }
+  button {
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin: 0%;
+    padding: 5px;
+  }
+  select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid;
+    border-color: rgb(62, 72, 82);
+    border-radius: 6px;
+    border-width: initial;
+  }
+  input {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid;
+    border-color: rgb(62, 72, 82);
+    border-radius: 6px;
+    border-width: initial;
+  }
+  select:hover{
+    border-color: rgb(255, 0, 0);
+  }
+  #Display{
+    text-align: center;
+  }
+  #display {
+  background-color: #8ad991; /* Green */
+  border: none;
+  color: rgb(26, 25, 25);
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+}
+#display:hover
+{
+  background-color: darkgreen;
+  color:aliceblue;
+}
+  .column {
+    float: left;
+    }
+
+    /* Set width length for the left, right and middle columns */
+    .left {
+    width: 25%;
+    }
+
+    .middle {
+    width: 25%;
+    }
+    .middle2
+    {
+      width:25%;
+    }
+    .right {
+    width: 25%;
+    }
+
+    .row:after {
+    content: "";
+    display: table;
+    clear: both;
+    }
+    .top{
+            margin-top: 0%;
+            font-size: 50px;
+            text-align: center;
+            color:black;
+          
+        }
+    
+  </style>
+</head>
+<body style="background-image: url(./static/bg1.jpg);backdrop-filter:10px;background-repeat:no-repeat;
+ background-size:cover; margin:1% 15%; text-align: center;">
+ <div class="top">
+  <marquee width="70%" direction="left" >
+      <b style="margin-top:5%;"><i>Scora Labs Pvt Ltd</i></b>
+      </marquee> 
+      <img src="./static/scora_logo.jpg" style=" margin-top:0;height:25%;width:19%;text-align: center;float: left;">
+   </div> 
+ <br><br><br>
+  <div id="result">
+    <h1 style="margin-top: 0%;">Assign Tags</h1>
+    <h1> <p id="question"><b> Question : {{ Question }}</b></p></h1><br>
+    <div class="row">
+      <div class="column left" >
+        <h3>Bloom's Taxonomy</h3>
+        <select id="Taxonomy">
+          <option >{{ Predicted_Taxonomy }}</option>
+          <option >Understanding</option>
+          <option >Remembering</option>
+          <option> Creating </option>
+          <option >Analyzing</option>
+          <option> Evaluating</option>
+          <option>Applying</option>
+      </select>
+      <!--Add option  and Remove options buttons-->
+      <button onclick="addOption('Taxonomy')"><i class="fa-regular fa-square-plus"></i></button>
+      <button onclick="removeOption('Taxonomy')"><i class="fa-regular fa-square-minus"></i></button>
+    </div>
+    <div class="column middle2">
+      <h3>Difficulty</h3>
+      <select id="Difficulty">
+        <option >{{ Predicted_Difficulty }}</option>
+        <option >Hard</option>
+        <option >Medium</option>
+        <option >Easy</option>
+    </select>
+    <!--Add option  and Remove options buttons-->
+    <button onclick="addOption('Difficulty')" ><i class="fa-regular fa-square-plus"></i></button>
+    <button onclick="removeOption('Difficulty')"><i class="fa-regular fa-square-minus"></i></button>
+  </div>
+  <div class="column middle">
+    <h3>Category</h3>
+    <select id="Category">
+        <option >{{ Predicted_category }}</option>
+        <option >Entity</option>
+        <option >Human</option>
+        <option >Description</option>
+        <option >Numeric</option>
+        <option >Location </option>
+        <option >Abbreviation</option>
+    </select>
+    <!--Add option  and Remove options buttons-->
+    <button onclick="addOption('Category')"><i class="fa-regular fa-square-plus"></i></button>
+    <button onclick="removeOption('Category')"><i class="fa-regular fa-square-minus"></i></button>
+  </div>
+  <div class="column right">
+    <h3>SubCategory</h3>
+    <select id="SubCategory">
+      <option >{{ Predicted_subCategory }}</option>
+      <option >Formula</option>
+  </select>
+  <!--Add option  and Remove options buttons-->
+  <button onclick="addOption('SubCategory')"><i class="fa-regular fa-square-plus"></i></button>
+  <button onclick="removeOption('SubCategory')"><i class="fa-regular fa-square-minus"></i></button>
+  </div>
+    </div>
+    <br><br><br>
+    <div id="Display">
+       <button id="display" onclick="displayValues()">Display Values</button> 
+    </div>
+    </div>
+    <script>
+        function addOption(selectBoxId) {
+          // Get the select box element
+          var selectBox = document.getElementById(selectBoxId);
+          
+          // Display a dialog box for entering a new option
+          var newOption = prompt("Enter a new option:");
+          
+          // Create a new option element if a value is entered
+          if (newOption) {
+            // Create a new option element
+            var option = document.createElement("option");
+            
+            // Set the text of the new option
+            option.text = newOption;
+            
+            // Add the new option to the select box
+            selectBox.add(option);
+            var storedOptions = localStorage.getItem(selectBoxId);
+                if (storedOptions) {
+                    storedOptions = JSON.parse(storedOptions);
+                    storedOptions.push(newOption);
+                } else {
+                    storedOptions = [newOption];
+                }
+                localStorage.setItem(selectBoxId, JSON.stringify(storedOptions));
+          }
+        }
+        function loadStoredOptions(selectBoxId) {
+            var storedOptions = localStorage.getItem(selectBoxId);
+            if (storedOptions) {
+                storedOptions = JSON.parse(storedOptions);
+                var selectBox = document.getElementById(selectBoxId);
+                for (var i = 0; i < storedOptions.length; i++) {
+                    var option = document.createElement("option");
+                    /*if(storedOptions[i]!="hello")
+                    {
+                        option.text = storedOptions[i];
+                        selectBox.add(option); 
+                    }*/
+                   if(storedOptions[i]=="hello")
+                   {
+                        option.text = storedOptions[i];
+                        selectBox.remove(option); 
+                    }
+                    else
+                    {
+                        option.text=storedOptions[i];
+                        selectBox.add(option);
+                    }
+                    
+                }
+            }
+        }
+
+        // Load stored options for each select box when the page loads
+        window.onload = function() {
+            loadStoredOptions('Taxonomy');
+            loadStoredOptions('Difficulty');
+            loadStoredOptions('Category');
+            loadStoredOptions('SubCategory');
+        };
+        function displayValues() {
+            // Get the question
+            var question = document.getElementById("question").innerText;
+
+            // Get the selected box values
+            var taxonomy = document.getElementById("Taxonomy").value;
+            var difficulty = document.getElementById("Difficulty").value;
+            var category = document.getElementById("Category").value;
+            var subcategory = document.getElementById("SubCategory").value;
+
+            // Display the values
+            /*var result = "<h2>" + question  +"</h2>" +"<br>" +
+                         "Taxonomy: " + taxonomy + "<br>" +
+                         "Difficulty: " + difficulty + "<br>" +
+                         "Category: " + category + "<br>" +
+                         "Subcategory: " + subcategory;*/
+            
+            // Construct the new content using input elements
+       var result = "<h2>" + question + "</h2>" +"<br>" +
+                         "<b>Taxonomy:</b> "+
+            "<input type='text' value='" + taxonomy + "' readonly>" + "<br><br>" +
+                         "<b>Difficulty:</b> " +
+            "<input type='text' value='" + difficulty + "' readonly>"  + "<br><br>" +
+                         "<b>Category: </b>"+
+            "<input type='text' value='" + category + "' readonly>" +"<br><br>" +
+                         "<b>Subcategory:</b> "+
+            "<input type='text' value='" + subcategory + "' readonly>";
+
+        // Replace the current page with the new content
+        /*document.open();
+        document.write(result);
+        document.close();*/
+
+           document.getElementById("result").innerHTML = result;
+        }
+
+        function removeOption(selectBoxId) {
+  // Get the select box element
+  var selectBox = document.getElementById(selectBoxId);
+
+  // Get the selected index and value
+  var selectedIndex = selectBox.selectedIndex;
+  var selectedValue = selectBox.value;
+
+  // Remove the selected option from the select element
+  selectBox.remove(selectedIndex);
+
+  // Retrieve the stored options from local storage
+  var storedOptions = JSON.parse(localStorage.getItem("options"));
+
+// Filter the array to exclude the selected option
+storedOptions = storedOptions.filter(function(option) {
+  return option !== selectedValue;
+});
+
+// Update the stored options in local storage
+localStorage.setItem("options", JSON.stringify(storedOptions));
+}
+
+      </script>
+</body>
+</html>
